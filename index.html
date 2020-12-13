@@ -1,0 +1,86 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<link rel="stylesheet" href="style.css">
+<title>Алексеев_Егор_191-361_Лаб11</title>
+</head>
+<body>
+<script src="https://cdn.jsdelivr.net/npm/vue@2/dist/vue.js"></script>
+<div class="page1">
+<span class="title">Форма для учёта посещаемости студентов</span>
+</div>
+<div id="theme" style="margin-top: 50px;">
+<center><span v-bind:title="message">Подсказка (наведи курсор на меня)</span></center>
+</div>
+<div id="app">
+<div v-show="visible">
+<a href="https://github.com/AHEGAO1707/Lab11Web">Тыкните сюда и попадете в Git-репозиторий</a>
+<h2>Правила заполнения формы учёта посещаемости студентов:</h2>
+<p>Введите фамилию и имя студента, после этого нажмите "Добавить"</p>
+</div>
+<button v-on:click="visible=!visible" style="margin-top: 15px;">{{visible?'Скрыть':'Показать'}}</button>
+</div>
+<script src="https://unpkg.com/vue"></script>
+<script>
+var app = new Vue({
+el: '#app',
+data: {
+visible: true
+}
+});
+</script>
+<div style="display: flex; align-items: center; align-content: center; justify-content: center; margin-top: 50px;">
+<div class="page2" id="app2">
+<form class="note">
+<h1>Учёт посещаемости студентов</h1>
+<p>Пожалуйста, введите фамилию и имя студента, которого Вы хотите занести в список:</p>
+<div><label>Фамилия:</label>
+<input v-model="surname" required type="text" placeholder="Фамилия студента" /></div>
+<div><label>Имя:</label>
+<input required v-model="name" type="text" placeholder="Имя студента" /></div>
+<center><button v-on:click="if(surname !== '' && name !== ''){students.push(surname+' '+name),setName()}" class="btn_add" type="submit">Добавить</button></center>
+</form>
+<p v-if = "students.length == 0">Список пуст</p>
+<ol>
+<li v-for="student in students" v-if="surname!==null">
+<p class="list_item">{{student}} <button v-on:click="students.splice(index, 1)">Удалить</button></p>
+</li>
+</ol>
+<span v-html="cell(surname,name)"></span>
+</div>
+<script>
+var app2 = new Vue({
+el: '#app2',
+data: {
+surname: '',
+students: [],
+name: '',
+on: true
+},
+methods: {
+cell(surname, name) {
+console.log(surname, name);
+},
+setName: function () {
+this.surname = "";
+this.name = "";
+},
+on: function () {
+return false;
+}
+}
+})
+</script>
+<script>
+var theme = new Vue({
+el: '#theme',
+data: {
+message: 'Введите фамилию и имя студента, после этого нажмите кнопку "Добавить студента"'
+}
+})
+</script>
+</div>
+</body>
+</html>
